@@ -19318,7 +19318,7 @@ Transform:
   m_GameObject: {fileID: 919911661}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 77.72753, y: 16.908838, z: -22.34524}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19338,13 +19338,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 566141563986773395}
   CamHolder: {fileID: 3540242159566324423}
-  sensX: 0
-  sensY: 0
+  horizontalSens: 0
+  verticalSens: 0
   mouseLookSpeedX: 0.1
   mouseLookSpeedY: 0.1
   controllerLookSpeedX: 4
   controllerLookSpeedY: 4
   climbingScript: {fileID: 7427495009420555957}
+  playerCam: {fileID: 0}
 --- !u!81 &919911664
 AudioListener:
   m_ObjectHideFlags: 0
@@ -50863,9 +50864,9 @@ GameObject:
   - component: {fileID: 5175355968079455194}
   - component: {fileID: 3184323896830122669}
   - component: {fileID: 8235073557519054651}
-  - component: {fileID: 8235073557519054653}
   - component: {fileID: 8235073557519054654}
   - component: {fileID: 8235073557519054655}
+  - component: {fileID: 8235073557519054653}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -51045,7 +51046,7 @@ Transform:
   m_GameObject: {fileID: 1953665600840743714}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 171.5, y: 20, z: -228.5}
+  m_LocalPosition: {x: 171.87, y: 20.11, z: -228.18}
   m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51063,7 +51064,7 @@ Transform:
   m_GameObject: {fileID: 7415966751409675841}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 175.05, y: 23.7, z: -205.97}
+  m_LocalPosition: {x: 171.87, y: 20.11, z: -228.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51181,33 +51182,6 @@ MonoBehaviour:
   mayJump: 0.15
   crouchSpeed: 3.5
   crouchYScale: 0.5
-  jumpInput:
-    m_Name: Jump Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 63993f9b-2302-45de-8327-06a9148fbd17
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  sprintInput:
-    m_Name: Sprint Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 80fc858c-d09a-403a-b478-588ad2588a59
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  crouchInput:
-    m_Name: Crouch Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 66c6c485-0db2-4a93-b243-d5ca6d784043
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
   playerHeight: 3
   whatIsGround:
     serializedVersion: 2
@@ -51860,7 +51834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 919911662}
   teleportDis: 12
-  teleportCooldown: 5
+  teleportCooldown: 3
   whatIsTeleport:
     serializedVersion: 2
     m_Bits: 4096

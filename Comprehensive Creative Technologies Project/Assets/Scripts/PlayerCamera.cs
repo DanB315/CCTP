@@ -15,8 +15,8 @@ public class PlayerCamera : MonoBehaviour
 
 
     [Header("Sens Values")]
-    public float sensX;
-    public float sensY;
+    public float horizontalSens;
+    public float verticalSens;
     public float mouseLookSpeedX;
     public float mouseLookSpeedY;
     public float controllerLookSpeedX;
@@ -24,10 +24,11 @@ public class PlayerCamera : MonoBehaviour
 
     [Header("References")]
     public Climbing climbingScript;
+    public Camera playerCam;
 
 
-    float xRot;
-    float yRot;
+    float horizontalRotation;
+    float verticalRotation;
 
     Quaternion startRot;
 
@@ -36,6 +37,7 @@ public class PlayerCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         startRot = Quaternion.Euler(0, 0, 0);
+        playerCam = GameObject.Find("Camera").GetComponent<Camera>();
     }
 
     private void Awake()
@@ -60,35 +62,35 @@ public class PlayerCamera : MonoBehaviour
             lookInput = playerControls.Camera.Look.ReadValue<Vector2>();
             if (playerControls.Camera.Look.activeControl.device.name == "Mouse")
             {
-                sensX = mouseLookSpeedY;
-                sensY = mouseLookSpeedX;
+                horizontalSens = mouseLookSpeedY;
+                verticalSens = mouseLookSpeedX;
             }
 
             else
             {
-                sensX = controllerLookSpeedY;
-                sensY = controllerLookSpeedX;
+                horizontalSens = controllerLookSpeedY;
+                verticalSens = controllerLookSpeedX;
             }
-            float mouseX = lookInput.x * sensX;
-            float mouseY = lookInput.y * sensY;
+            float mouseX = lookInput.x * horizontalSens;
+            float mouseY = lookInput.y * verticalSens;
 
-            yRot += mouseX;
+            verticalRotation += mouseX;
 
-            xRot -= mouseY;
-            xRot = Mathf.Clamp(xRot, -90f, 90f);
+            horizontalRotation -= mouseY;
+            horizontalRotation = Mathf.Clamp(horizontalRotation, -90f, 90f);
 
-            CamHolder.rotation = Quaternion.Euler(xRot, yRot, 0);
-            orientation.rotation = Quaternion.Euler(0, yRot, 0);
+            CamHolder.rotation = Quaternion.Euler(horizontalRotation, verticalRotation, 0);
+            orientation.rotation = Quaternion.Euler(0, verticalRotation, 0);
         }
     }
 
     
-    public void DoFov(float endVal)
+    public void ChangeFieldOfView(float endVal)
     {
-        GetComponent<Camera>().DOFieldOfView(endVal, 0.25f);
+        playerCam.DOFieldOfView(endVal, 0.25f);
     }
 
-    public void DoTilt(float zTilt)
+    public void ChangeCamRotation(float zTilt)
     {
         transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.25f);
     }

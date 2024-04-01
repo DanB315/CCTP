@@ -52,6 +52,7 @@ public class WallRunning : MonoBehaviour
     public PlayerCamera camera;
     private Rigidbody rb;
     public Climbing climbing;
+    private GameObject camHolder;
 
     private void Awake()
     {
@@ -74,6 +75,7 @@ public class WallRunning : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         fpc = GetComponent<NewFirstPersonController>();
+        camHolder = GameObject.Find("CameraHolder");
     }
 
     private void Update()
@@ -81,7 +83,7 @@ public class WallRunning : MonoBehaviour
         CheckForWall();
         StateMachine();
 
-
+        print(camHolder.transform.eulerAngles.x);
     }
 
     private void FixedUpdate()
@@ -109,7 +111,7 @@ public class WallRunning : MonoBehaviour
         hInput = currentInput.x;
         vInput = currentInput.y;
 
-        upwardsRunning = runUpInput.IsPressed();
+        upwardsRunning = runUpInput.IsPressed() || (camHolder.transform.eulerAngles.x <= 350 && camHolder.transform.eulerAngles.x >= 270);
 
 
         if ((wallLeft || wallRight) && vInput > 0 && AboveGround() && !exitWall && !climbing.climbing)
@@ -173,21 +175,20 @@ public class WallRunning : MonoBehaviour
 
         if (wallRight)
         {
-            camera.DoTilt(10f);
+            camera.ChangeCamRotation(10f);
         }
 
         else if (wallLeft)
         {
-            camera.DoTilt(-10f);
+            camera.ChangeCamRotation(-10f);
         }
 
-        camera.DoFov(100f);
+        camera.ChangeFieldOfView(100f);
     }
 
     private void WallRunMovement()
     {
-        rb.useGravity = useGravity;
-        
+        rb.useGravity = useGravity;        
 
         Vector3 wallNormal = wallRight ? rightWallhit.normal : leftWallhit.normal;
 
@@ -221,8 +222,8 @@ public class WallRunning : MonoBehaviour
     {
         fpc.isWallrunning = false;
 
-        camera.DoTilt(0f);
-        camera.DoFov(90f);
+        camera.ChangeCamRotation(0f);
+        camera.ChangeFieldOfView(90f);
     }    
 
     private void WallJump()

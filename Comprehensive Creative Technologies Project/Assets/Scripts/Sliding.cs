@@ -89,7 +89,7 @@ public class Sliding : MonoBehaviour
 
         slideTimer = maxSlideTime;
 
-        playerCam.DoFov(100f);
+        playerCam.ChangeFieldOfView(100f);
     }
 
     private void SlidingMovement()
@@ -121,6 +121,6 @@ public class Sliding : MonoBehaviour
 
         playerObject.localScale = new Vector3(playerObject.localScale.x, startYScale, playerObject.localScale.z);
 
-        playerCam.DoFov(90f);
+        playerCam.ChangeFieldOfView(90f);
     }
 }

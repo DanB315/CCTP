@@ -52,10 +52,9 @@ public class NewFirstPersonController : MonoBehaviour
     public float crouchYScale;
     private float startYScale;
 
-    [Header("KEYBINDS")]
-    public InputAction jumpInput;
-    public InputAction sprintInput;
-    public InputAction crouchInput;
+    private InputAction jumpInput;
+    private InputAction sprintInput;
+    private InputAction crouchInput;
 
     [Header("GROUNDED")]
     public float playerHeight;
@@ -142,7 +141,7 @@ public class NewFirstPersonController : MonoBehaviour
         
         MyInput();
         SpeedControl();
-        StateHandler();
+        StateMachine();
         if (!isSliding)
         {
             HandleHeadbob();
@@ -198,7 +197,7 @@ public class NewFirstPersonController : MonoBehaviour
         }
     }
 
-    private void StateHandler()
+    private void StateMachine()
     {
         if (isDashing)
         {

@@ -76,7 +76,7 @@ public class Teleport : MonoBehaviour
             canTeleport = true;
         }
 
-        RaycastHit hitData;
+        
 
         if (canTeleport)
         {
@@ -93,7 +93,7 @@ public class Teleport : MonoBehaviour
             if (canTeleport)
             {
                 cube.SetActive(true);
-                playerCam.DoFov(110);
+                playerCam.ChangeFieldOfView(110);
                 teleportActive = true;
                 if (!fpc.grounded)
                 {
@@ -103,24 +103,6 @@ public class Teleport : MonoBehaviour
                 else
                 {
                     Time.timeScale = 1f;
-                }
-                if (Physics.Raycast(cam.transform.position, orientation.forward, out hitData, teleportDis, ~whatIsTeleport))
-                {
-                    colliderNormal = hitData.normal.normalized;
-                    if (colliderNormal.x < 0 || colliderNormal.y < 0 || colliderNormal.z < 0)
-                    {
-                        cube.transform.position = new Vector3(hitData.point.x - cube.transform.localScale.x * 0.5f, hitData.point.y - cube.transform.localScale.y * 0.5f, hitData.point.z - cube.transform.localScale.z * 0.5f);
-                    }
-
-                    else
-                    {
-                        cube.transform.position = new Vector3(hitData.point.x + cube.transform.localScale.x * 0.5f, hitData.point.y + cube.transform.localScale.y * 0.5f, hitData.point.z + cube.transform.localScale.z * 0.5f);
-                    }
-                }
-
-                else
-                {
-                    cube.transform.position = cam.transform.position + orientation.forward * teleportDis;
                 }
             }
 
@@ -135,9 +117,36 @@ public class Teleport : MonoBehaviour
             }
         }
     }
+
+    private void FixedUpdate()
+    {
+        RaycastHit hitData;
+        if (teleportActive)
+        {
+            if (Physics.Raycast(cam.transform.position, orientation.forward, out hitData, teleportDis, ~whatIsTeleport))
+            {
+                colliderNormal = hitData.normal.normalized;
+                if (colliderNormal.x < 0 || colliderNormal.y < 0 || colliderNormal.z < 0)
+                {
+                    cube.transform.position = new Vector3(hitData.point.x - cube.transform.localScale.x * 0.5f, hitData.point.y - cube.transform.localScale.y * 0.5f, hitData.point.z - cube.transform.localScale.z * 0.5f);
+                }
+
+                else
+                {
+                    cube.transform.position = new Vector3(hitData.point.x + cube.transform.localScale.x * 0.5f, hitData.point.y + cube.transform.localScale.y * 0.5f, hitData.point.z + cube.transform.localScale.z * 0.5f);
+                }
+            }
+
+            else
+            {
+                cube.transform.position = cam.transform.position + orientation.forward * teleportDis;
+            }
+        }
+
+    }
     private void ActivateTeleport()
     {
-        playerCam.DoFov(70);
+        playerCam.ChangeFieldOfView(70);
         rb.MovePosition(cube.transform.position);
         StartCoroutine(resetFov(0.1f));
         timer = teleportCooldown;
@@ -150,6 +159,6 @@ public class Teleport : MonoBehaviour
     IEnumerator resetFov(float secs)
     {
         yield return new WaitForSeconds(secs);
-        playerCam.DoFov(90);
+        playerCam.ChangeFieldOfView(90);
     }
 }
