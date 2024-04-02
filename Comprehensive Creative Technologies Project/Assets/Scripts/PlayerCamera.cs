@@ -13,8 +13,11 @@ public class PlayerCamera : MonoBehaviour
     public Transform orientation;
     public Transform CamHolder;
 
+    [Header("REFRENCES")]
+    public Climbing climbingScript;
+    public Camera playerCam;
 
-    [Header("Sens Values")]
+    [Header("SENSITIVITY VALUES")]
     public float horizontalSens;
     public float verticalSens;
     public float mouseLookSpeedX;
@@ -22,9 +25,7 @@ public class PlayerCamera : MonoBehaviour
     public float controllerLookSpeedX;
     public float controllerLookSpeedY;
 
-    [Header("References")]
-    public Climbing climbingScript;
-    public Camera playerCam;
+    
 
 
     float horizontalRotation;

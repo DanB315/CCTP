@@ -22,6 +22,7 @@ public class NewFirstPersonController : MonoBehaviour
 
     public float groundDrag;
 
+    [Header("IS PLAYER")]
     public bool isCrouching;
     public bool isSprinting;
     public bool isSliding;
@@ -30,7 +31,7 @@ public class NewFirstPersonController : MonoBehaviour
 
     bool keepMomentum;
 
-    [Header("HEADBOB")]
+    [Header("HEADBOB VALUES")]
     public float walkBobSpeed;
     public float walkBobAmount;
     public float crouchBobSpeed;
@@ -40,14 +41,14 @@ public class NewFirstPersonController : MonoBehaviour
     private float defaultYPos = 0;
     private float timer;
 
-    [Header("JUMPING")]
+    [Header("JUMPING VALUES")]
     public float jumpForce;
     public float jumpCooldown;
     public float airMulti;
     bool readyToJump;
     public float mayJump;
 
-    [Header("CROUCHING")]
+    [Header("CROUCHING VALUES")]
     public float crouchSpeed;
     public float crouchYScale;
     private float startYScale;
@@ -61,7 +62,7 @@ public class NewFirstPersonController : MonoBehaviour
     public LayerMask whatIsGround;
     public bool grounded;
 
-    [Header("SLOPE")]
+    [Header("SLOPE VALUES")]
     public float maxSlopeAngle;
     public RaycastHit slopeHit;
     private bool exitingSlope;

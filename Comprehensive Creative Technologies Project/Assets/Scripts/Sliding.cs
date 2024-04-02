@@ -5,14 +5,14 @@ using UnityEngine.InputSystem;
 
 public class Sliding : MonoBehaviour
 {
-    [Header("References")]
+    [Header("REFERENCES")]
     public Transform orientation;
     public Transform playerObject;
     private Rigidbody rb;
     private NewFirstPersonController fpc;
     public PlayerCamera playerCam;
 
-    [Header("Sliding")]
+    [Header("SLIDING VALUES")]
     public float maxSlideTime = 1f;
     public float slideForce = 40f;
     private float slideTimer;
