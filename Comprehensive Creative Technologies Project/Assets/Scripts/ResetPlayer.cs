@@ -9,6 +9,7 @@ public class ResetPlayer : MonoBehaviour
     private GameObject player;
     private GameObject currPoint;
     int i = 0;
+    public float deaths = 0f;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class ResetPlayer : MonoBehaviour
         if (collision.collider.tag == "Death")
         {
             player.transform.position = currPoint.transform.position;
+            deaths++;
         }
     }
 

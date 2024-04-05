@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &138309890655635417
 Transform:
@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 2541825827083488157}
   serializedVersion: 2
   m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
-  m_LocalPosition: {x: 3.029, y: 2.99, z: 5.76}
-  m_LocalScale: {x: 3.9812, y: 0.11247, z: 10.347275}
+  m_LocalPosition: {x: 3.0343, y: 2.99, z: 5.76}
+  m_LocalScale: {x: 4.9339013, y: 0.11247, z: 10.347275}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3361326707275054558}
@@ -121,7 +121,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3361326707275054544
 Transform:
@@ -132,8 +132,8 @@ Transform:
   m_GameObject: {fileID: 3361326707275342320}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0.000000008458289, z: -0.7071067, w: -0.00000000845829}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: -1, z: -1.82712}
+  m_LocalPosition: {x: -0.7195, y: 0, z: 0}
+  m_LocalScale: {x: -1, y: -1, z: -2.2643497}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3361326707275054558}
@@ -311,7 +311,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3361326707275054548
 Transform:
@@ -322,8 +322,8 @@ Transform:
   m_GameObject: {fileID: 3361326707275342324}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0.000000008458289, z: -0.7071067, w: -0.00000000845829}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: -1, z: -1.82712}
+  m_LocalPosition: {x: -0.7195, y: 0, z: 0}
+  m_LocalScale: {x: -1, y: -1, z: -2.2643497}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3361326707275054558}

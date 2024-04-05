@@ -16,6 +16,7 @@ public class PlayerCamera : MonoBehaviour
     [Header("REFRENCES")]
     public Climbing climbingScript;
     public Camera playerCam;
+    public Pause pause;
 
     [Header("SENSITIVITY VALUES")]
     public float horizontalSens;
@@ -39,6 +40,7 @@ public class PlayerCamera : MonoBehaviour
         Cursor.visible = false;
         startRot = Quaternion.Euler(0, 0, 0);
         playerCam = GameObject.Find("Camera").GetComponent<Camera>();
+        pause = GameObject.Find("LevelManager").GetComponent<Pause>();
     }
 
     private void Awake()
@@ -58,31 +60,35 @@ public class PlayerCamera : MonoBehaviour
 
     private void Update()
     {
-        if (!climbingScript.climbing)
+        if (!pause.isPaused)
         {
-            lookInput = playerControls.Camera.Look.ReadValue<Vector2>();
-            if (playerControls.Camera.Look.activeControl.device.name == "Mouse")
+            if (!climbingScript.climbing)
             {
-                horizontalSens = mouseLookSpeedY;
-                verticalSens = mouseLookSpeedX;
+                lookInput = playerControls.Camera.Look.ReadValue<Vector2>();
+                if (playerControls.Camera.Look.activeControl.device.name == "Mouse")
+                {
+                    horizontalSens = mouseLookSpeedY;
+                    verticalSens = mouseLookSpeedX;
+                }
+
+                else
+                {
+                    horizontalSens = controllerLookSpeedY;
+                    verticalSens = controllerLookSpeedX;
+                }
+                float mouseX = lookInput.x * horizontalSens;
+                float mouseY = lookInput.y * verticalSens;
+
+                verticalRotation += mouseX;
+
+                horizontalRotation -= mouseY;
+                horizontalRotation = Mathf.Clamp(horizontalRotation, -90f, 90f);
+
+                CamHolder.rotation = Quaternion.Euler(horizontalRotation, verticalRotation, 0);
+                orientation.rotation = Quaternion.Euler(0, verticalRotation, 0);
             }
-
-            else
-            {
-                horizontalSens = controllerLookSpeedY;
-                verticalSens = controllerLookSpeedX;
-            }
-            float mouseX = lookInput.x * horizontalSens;
-            float mouseY = lookInput.y * verticalSens;
-
-            verticalRotation += mouseX;
-
-            horizontalRotation -= mouseY;
-            horizontalRotation = Mathf.Clamp(horizontalRotation, -90f, 90f);
-
-            CamHolder.rotation = Quaternion.Euler(horizontalRotation, verticalRotation, 0);
-            orientation.rotation = Quaternion.Euler(0, verticalRotation, 0);
         }
+        
     }
 
     

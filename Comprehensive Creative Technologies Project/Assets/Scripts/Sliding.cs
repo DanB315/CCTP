@@ -16,6 +16,7 @@ public class Sliding : MonoBehaviour
     public float maxSlideTime = 1f;
     public float slideForce = 40f;
     private float slideTimer;
+    public float slideCounter = 0f;
 
     public float slideYScale = 0.5f;
     private float startYScale;
@@ -83,6 +84,7 @@ public class Sliding : MonoBehaviour
     private void StartSlide()
     {
         fpc.isSliding = true;
+        slideCounter++;
 
         playerObject.localScale = new Vector3(playerObject.localScale.x, slideYScale, playerObject.localScale.z);
         rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);

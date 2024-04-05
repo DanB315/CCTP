@@ -14,6 +14,7 @@ public class WallRunning : MonoBehaviour
     public float wallJumpSideForce;
     private float wallRunTimer;
     public float wallClimbSpeed;
+    public float wallRunCounter = 0f;
 
     private float hInput;
     private float vInput;
@@ -82,8 +83,6 @@ public class WallRunning : MonoBehaviour
     {
         CheckForWall();
         StateMachine();
-
-        print(camHolder.transform.eulerAngles.x);
     }
 
     private void FixedUpdate()
@@ -168,6 +167,7 @@ public class WallRunning : MonoBehaviour
     private void StartWallRun()
     {
         fpc.isWallrunning = true;
+        wallRunCounter++;
 
         wallRunTimer = maxWallRunTime;
 

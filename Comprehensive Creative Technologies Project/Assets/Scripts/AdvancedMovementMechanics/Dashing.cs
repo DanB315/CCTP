@@ -10,12 +10,14 @@ public class Dashing : MonoBehaviour
     public Transform playerCam;
     private Rigidbody rb;
     private NewFirstPersonController fpc;
+    Pause pause;
 
     [Header("DASHING")]
     public float dashForce;
     public float dashUpwardsForce;
     public float dashDuration;
     private Vector3 delayedForceToApply;
+    public float dashCounter = 0f;
 
     [Header("DASH COOLDOWN")]
     public float dashCool;
@@ -45,13 +47,17 @@ public class Dashing : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         fpc = GetComponent<NewFirstPersonController>();
+        pause = GameObject.Find("LevelManager").GetComponent<Pause>();
     }
 
     private void Update()
     {
-        if (dashInput.IsPressed())
+        if (!pause.isPaused)
         {
-            Dash();
+            if (dashInput.IsPressed())
+            {
+                Dash();
+            }
         }
 
         if (dashCoolTimer > 0)
@@ -73,6 +79,7 @@ public class Dashing : MonoBehaviour
         } 
             
         fpc.isDashing = true;
+        dashCounter++;
 
         Vector3 forceToApply = orientation.forward * dashForce + orientation.up * dashUpwardsForce;
 

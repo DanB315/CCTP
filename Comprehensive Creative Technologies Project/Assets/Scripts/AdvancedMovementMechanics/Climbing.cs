@@ -20,6 +20,7 @@ public class Climbing : MonoBehaviour
     public float climbSpeed;
     public float maxClimbTime;
     private float climbTimer;
+    public float climbCounter = 0f;
 
     public bool climbing = false;
 
@@ -149,7 +150,7 @@ public class Climbing : MonoBehaviour
     private void StartClmbing()
     {
         climbing = true;
-
+        climbCounter++;
         lastWall = frontWallHit.transform;
         lastWallNormal = frontWallHit.normal;
     }

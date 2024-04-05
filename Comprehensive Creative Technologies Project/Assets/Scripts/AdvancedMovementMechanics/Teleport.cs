@@ -23,7 +23,7 @@ public class Teleport : MonoBehaviour
     public LayerMask whatIsTeleport;
     public bool canTeleport = true;
     public bool teleportActive = false;
-
+    public float teleportCounter = 0f;
 
     InputAction teleportInput;
     public GameObject cube;
@@ -146,6 +146,7 @@ public class Teleport : MonoBehaviour
     }
     private void ActivateTeleport()
     {
+        teleportCounter++;
         playerCam.ChangeFieldOfView(70);
         rb.MovePosition(cube.transform.position);
         StartCoroutine(resetFov(0.1f));

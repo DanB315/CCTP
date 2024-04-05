@@ -13,6 +13,8 @@ public class NewFirstPersonController : MonoBehaviour
     public float wallRunSpeed;
     public float dashSpeed;
     public bool canMove = true;
+    public float jumpcounter = 0f;
+    public float crouchCounter = 0f;
 
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
@@ -194,6 +196,7 @@ public class NewFirstPersonController : MonoBehaviour
             else
             {
                 transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+                crouchCounter++;
             }
         }
     }
@@ -383,6 +386,7 @@ public class NewFirstPersonController : MonoBehaviour
     private void Jump()
     {
         exitingSlope = true;
+        jumpcounter++;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
