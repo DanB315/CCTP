@@ -15,14 +15,11 @@ public class NewFirstPersonController : MonoBehaviour
     public bool canMove = true;
     public float jumpcounter = 0f;
     public float crouchCounter = 0f;
-
-    private float desiredMoveSpeed;
-    private float lastDesiredMoveSpeed;
-
-    public float speedIncreaseMulti;
-    public float slopeIncreaseMulti;
-
     public float groundDrag;
+
+    private InputAction jumpInput;
+    private InputAction sprintInput;
+    private InputAction crouchInput;
 
     [Header("IS PLAYER")]
     public bool isCrouching;
@@ -30,8 +27,6 @@ public class NewFirstPersonController : MonoBehaviour
     public bool isSliding;
     public bool isWallrunning;
     public bool isDashing;
-
-    bool keepMomentum;
 
     [Header("HEADBOB VALUES")]
     public float walkBobSpeed;
@@ -54,10 +49,6 @@ public class NewFirstPersonController : MonoBehaviour
     public float crouchSpeed;
     public float crouchYScale;
     private float startYScale;
-
-    private InputAction jumpInput;
-    private InputAction sprintInput;
-    private InputAction crouchInput;
 
     [Header("GROUNDED")]
     public float playerHeight;
@@ -206,35 +197,25 @@ public class NewFirstPersonController : MonoBehaviour
         if (isDashing)
         {
             state = MovementState.dashing;
-            desiredMoveSpeed = dashSpeed;
+            moveSpeed = dashSpeed;
         }
 
         else if (isWallrunning)
         {
             state = MovementState.wallrunning;
-            desiredMoveSpeed = wallRunSpeed;
+            moveSpeed = wallRunSpeed;
         }
 
         else if (isSliding)
         {
             state = MovementState.sliding;
-
-            if (OnSlope() && rb.velocity.y < 0.1f)
-            {
-                desiredMoveSpeed = slideSpeed;
-                keepMomentum = true;
-            }
-
-            else
-            {
-                desiredMoveSpeed = sprintSpeed;
-            }
+            moveSpeed = slideSpeed;
         }
 
         else if (crouchInput.IsPressed() && grounded && !isSprinting)
         {
             state = MovementState.crouching;
-            desiredMoveSpeed = crouchSpeed;
+            moveSpeed = crouchSpeed;
             isSprinting = false;
             isCrouching = true;
         }
@@ -242,7 +223,7 @@ public class NewFirstPersonController : MonoBehaviour
         else if (grounded && sprintInput.IsPressed())
         {
             state = MovementState.sprinting;
-            desiredMoveSpeed = sprintSpeed;
+            moveSpeed = sprintSpeed;
             isSprinting = true;
             isCrouching = false;
         }
@@ -250,7 +231,7 @@ public class NewFirstPersonController : MonoBehaviour
         else if (grounded)
         {
             state = MovementState.walking;
-            desiredMoveSpeed = walkSpeed;
+            moveSpeed = walkSpeed;
             isSprinting = false;
         }
 
@@ -259,55 +240,8 @@ public class NewFirstPersonController : MonoBehaviour
             state = MovementState.air;
         }
 
-        bool desiredMoveSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
-
-        if (desiredMoveSpeedHasChanged)
-        {
-            if (keepMomentum)
-            {
-                StopAllCoroutines();
-                StartCoroutine(SmoothlyLerpMoveSpeed());
-            }
-
-            else
-            {
-                moveSpeed = desiredMoveSpeed;
-            }
-        }
-
-        if (Mathf.Abs(desiredMoveSpeed - moveSpeed) < 0.1f)
-        {
-            keepMomentum = false;
-        }
     }
 
-    private IEnumerator SmoothlyLerpMoveSpeed()
-    {
-        float time = 0;
-        float difference = Mathf.Abs(desiredMoveSpeed - moveSpeed);
-        float startValue = moveSpeed;
-
-        while (time < difference)
-        {
-            moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
-            if (OnSlope())
-            {
-                float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                float slopeAngleIncrease = 1 + (slopeAngle / 90f);
-
-                time += Time.deltaTime * speedIncreaseMulti * slopeIncreaseMulti * slopeAngleIncrease;
-            }
-
-            else
-            {
-                time += Time.deltaTime * speedIncreaseMulti;
-            }
-
-            yield return null;
-        }
-
-        moveSpeed = desiredMoveSpeed;
-    }
 
     private void MovePlayer()
     {
