@@ -126,12 +126,13 @@ public class Teleport : MonoBehaviour
             if (Physics.Raycast(cam.transform.position, orientation.forward, out hitData, teleportDis, ~whatIsTeleport))
             {
                 colliderNormal = hitData.normal.normalized;
-                if (colliderNormal.x < 0 || colliderNormal.y < 0 || colliderNormal.z < 0)
+                print(colliderNormal);
+                if (colliderNormal.x <= 0 || colliderNormal.y <= 0 || colliderNormal.z <= 0)
                 {
                     cube.transform.position = new Vector3(hitData.point.x - cube.transform.localScale.x * 0.5f, hitData.point.y - cube.transform.localScale.y * 0.5f, hitData.point.z - cube.transform.localScale.z * 0.5f);
                 }
 
-                else
+                if (colliderNormal.x >= 1 || colliderNormal.y >= 1 || colliderNormal.z >= 1)
                 {
                     cube.transform.position = new Vector3(hitData.point.x + cube.transform.localScale.x * 0.5f, hitData.point.y + cube.transform.localScale.y * 0.5f, hitData.point.z + cube.transform.localScale.z * 0.5f);
                 }

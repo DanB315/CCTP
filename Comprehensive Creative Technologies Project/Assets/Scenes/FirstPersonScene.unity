@@ -56942,15 +56942,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 7
-  sprintSpeed: 10
-  slideSpeed: 12
+  sprintSpeed: 12
+  slideSpeed: 13
   wallRunSpeed: 14
   dashSpeed: 20
   canMove: 1
   jumpcounter: 0
   crouchCounter: 0
-  speedIncreaseMulti: 2
-  slopeIncreaseMulti: 2.5
   groundDrag: 6
   isCrouching: 0
   isSprinting: 0
