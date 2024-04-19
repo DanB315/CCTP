@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using DG.Tweening;
 
 public class PlayerCamera : MonoBehaviour
@@ -17,6 +18,7 @@ public class PlayerCamera : MonoBehaviour
     public Climbing climbingScript;
     public Camera playerCam;
     public Pause pause;
+    public PlayerInput playerInput;
 
     [Header("SENSITIVITY VALUES")]
     public float horizontalSens;
@@ -25,6 +27,8 @@ public class PlayerCamera : MonoBehaviour
     public float mouseLookSpeedY;
     public float controllerLookSpeedX;
     public float controllerLookSpeedY;
+    float camX;
+    float camY;
 
     
 
@@ -41,6 +45,7 @@ public class PlayerCamera : MonoBehaviour
         startRot = Quaternion.Euler(0, 0, 0);
         playerCam = GameObject.Find("Camera").GetComponent<Camera>();
         pause = GameObject.Find("LevelManager").GetComponent<Pause>();
+        playerInput = GameObject.Find("LevelManager").GetComponent<PlayerInput>();
     }
 
     private void Awake()
@@ -65,24 +70,32 @@ public class PlayerCamera : MonoBehaviour
             if (!climbingScript.climbing)
             {
                 lookInput = playerControls.Camera.Look.ReadValue<Vector2>();
-                if (playerControls.Camera.Look.activeControl.device.name == "Mouse")
+                if (playerInput.currentControlScheme == "Keyboard & Mouse")
                 {
                     horizontalSens = mouseLookSpeedY;
                     verticalSens = mouseLookSpeedX;
+                    camX = lookInput.x * horizontalSens;
+                    camY = lookInput.y * verticalSens;
+                }
+
+                else if (playerInput.currentControlScheme == "Gamepad")
+                {
+                    horizontalSens = controllerLookSpeedY;
+                    verticalSens = controllerLookSpeedX;
+                    camX = lookInput.x * horizontalSens * Time.deltaTime;
+                    camY = lookInput.y * verticalSens * Time.deltaTime;
                 }
 
                 else
                 {
-                    horizontalSens = controllerLookSpeedY;
-                    verticalSens = controllerLookSpeedX;
+                    print("NO INPUT SYSTEM DETECTED");
+
                 }
-                float mouseX = lookInput.x * horizontalSens;
-                float mouseY = lookInput.y * verticalSens;
 
-                verticalRotation += mouseX;
+                verticalRotation += camX;
 
-                horizontalRotation -= mouseY;
-                horizontalRotation = Mathf.Clamp(horizontalRotation, -90f, 90f);
+                horizontalRotation -= camY;
+                horizontalRotation = Mathf.Clamp(horizontalRotation, -80f, 80f);
 
                 CamHolder.rotation = Quaternion.Euler(horizontalRotation, verticalRotation, 0);
                 orientation.rotation = Quaternion.Euler(0, verticalRotation, 0);
